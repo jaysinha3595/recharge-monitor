@@ -31,7 +31,7 @@ public class NotificationService {
             int exitCode = process.waitFor();
             log.info("wacli success: exitCode {}", exitCode);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Errored while sending whatsapp messaage" ,e);
         }
     }
 

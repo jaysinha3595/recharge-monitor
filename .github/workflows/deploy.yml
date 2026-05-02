@@ -20,7 +20,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build JAR
-        run: ./mvnw package -DskipTests
+        run: mvn package -DskipTests
 
       - name: Copy JAR to VPS
         uses: appleboy/scp-action@v0.1.7

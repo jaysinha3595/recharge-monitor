@@ -14,7 +14,7 @@ public class PollingScheduler {
     private final ExternalApiService externalApiService;
 
 //    @Scheduled(cron = "0 0 11 * * *", zone = "Asia/Kolkata")
-    @Scheduled(fixedRate = 60*2*1000)
+    @Scheduled(cron = "0 45 12 * * *", zone = "Asia/Kolkata")
     void pollNbpdclApiDaily() {
         log.info("Polling NBPDCL api at {}", System.currentTimeMillis());
         externalApiService.checkMeterBalance();

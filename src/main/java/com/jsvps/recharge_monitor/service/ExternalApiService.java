@@ -58,25 +58,28 @@ public class ExternalApiService {
         if(atomicBoolean.get()){
             String preparedMessage = prepareLowBalanceMessage(allMeterDetails);
             invokeLowBalanceAlert(preparedMessage);
+        }else {
+            log.info("All balances are above threshold.");
         }
     }
 
     private String prepareLowBalanceMessage(List<MeterDetails> allMeterDetails) {
         StringBuilder sb = new StringBuilder("⚡ ALERT: Low Balance ⚡\n\n");
         for (MeterDetails meterDetails : allMeterDetails) {
-            sb.append("*");
-            if(meterDetails.getAvailBalance()<lowBalanceThreshold){
-                sb.append(emojiLowInd);
+            if(!meterDetails.isLowBalanceFlag()){
+                continue;
             }else {
-                sb.append(emojiOkInd);
+                sb.append("*");
+                sb.append(emojiLowInd);
             }
             sb.append(" ")
                     .append(meterIdCustAliasMap.get(meterDetails.getMeterNumber()))
-                    .append(" ")
-                    .append(meterDetails.getUnitId())
-                    .append("*\n")
+                    .append(" | ")
                     .append("Bal: ")
                     .append(meterDetails.getAvailBalance())
+                    .append("*\n")
+                    .append("ID: ")
+                    .append(meterDetails.getUnitId())
                     .append("\n")
                     .append("Last Rchrg: ")
                     .append(meterDetails.getMaxDtOfRecharge())

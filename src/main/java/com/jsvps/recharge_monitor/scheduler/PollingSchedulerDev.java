@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-@Profile("DEV")
+@Profile("dev")
 public class PollingSchedulerDev {
 
     private final ExternalApiService externalApiService;

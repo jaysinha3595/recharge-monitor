@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-@Profile("PROD")
+@Profile("prod")
 public class PollingScheduler {
 
     private final ExternalApiService externalApiService;
 
-    @Scheduled(cron = "${everyDay11AM}", zone = "Asia/Kolkata")
+    @Scheduled(cron = "${cronExpression}", zone = "Asia/Kolkata")
     void pollNbpdclApiDaily() {
         log.info("Polling NBPDCL api at {}", System.currentTimeMillis());
         externalApiService.checkMeterBalance();

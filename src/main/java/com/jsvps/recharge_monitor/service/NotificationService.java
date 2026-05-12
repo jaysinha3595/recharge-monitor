@@ -22,7 +22,7 @@ public class NotificationService {
 
     public void runBashCommands(String message) {
         ProcessBuilder processBuilder = new ProcessBuilder(
-                "sh", "-c", "wacli send text --to " + groupJid + " --message '"+message+"'");
+                "/usr/local/bin/wacli-send.sh", groupJid, message);
         try {
             Process process = processBuilder.start();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {

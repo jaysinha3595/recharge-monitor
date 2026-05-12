@@ -23,13 +23,16 @@ public class NotificationService {
     public void runBashCommands(String message) {
         ProcessBuilder processBuilder = new ProcessBuilder(
                 "/usr/local/bin/wacli-send.sh", groupJid, message);
+        processBuilder.redirectErrorStream(true);
         try {
             Process process = processBuilder.start();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                reader.lines().forEach(line -> System.out.println("CLI Output: " + line));
-            }
+//            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+//                reader.lines().forEach(line -> System.out.println("CLI Output: " + line));
+//            }
+            String output = new String(process.getInputStream().readAllBytes());
             int exitCode = process.waitFor();
-            log.info("wacli success: exitCode {}", exitCode);
+            log.info("wacli output: {}", output);
+            log.info("wacli exitCode: {}", exitCode);
         } catch (Exception e) {
             log.error("Errored while sending whatsapp messaage" ,e);
         }
